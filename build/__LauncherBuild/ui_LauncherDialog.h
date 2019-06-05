@@ -58,8 +58,8 @@ public:
     QFrame *line_2;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QCheckBox *CB_EXF_R;
-    QCheckBox *CB_EXF_L;
+    QCheckBox *CB_2F_R;
+    QCheckBox *CB_2F_L;
     QPushButton *BTN_STOP_DAEMON;
     QLineEdit *LE_DAEMON_PID;
     QPushButton *BTN_CHANGE_GUI;
@@ -194,15 +194,15 @@ public:
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        CB_EXF_R = new QCheckBox(gridLayoutWidget);
-        CB_EXF_R->setObjectName(QStringLiteral("CB_EXF_R"));
+        CB_2F_R = new QCheckBox(gridLayoutWidget);
+        CB_2F_R->setObjectName(QStringLiteral("CB_2F_R"));
 
-        gridLayout->addWidget(CB_EXF_R, 0, 0, 1, 1);
+        gridLayout->addWidget(CB_2F_R, 0, 0, 1, 1);
 
-        CB_EXF_L = new QCheckBox(gridLayoutWidget);
-        CB_EXF_L->setObjectName(QStringLiteral("CB_EXF_L"));
+        CB_2F_L = new QCheckBox(gridLayoutWidget);
+        CB_2F_L->setObjectName(QStringLiteral("CB_2F_L"));
 
-        gridLayout->addWidget(CB_EXF_L, 0, 1, 1, 1);
+        gridLayout->addWidget(CB_2F_L, 0, 1, 1, 1);
 
         BTN_STOP_DAEMON = new QPushButton(LauncherDialog);
         BTN_STOP_DAEMON->setObjectName(QStringLiteral("BTN_STOP_DAEMON"));
@@ -253,8 +253,8 @@ public:
         RB_GAZEBO->setText(QApplication::translate("LauncherDialog", "Gazebo", 0));
         label->setText(QApplication::translate("LauncherDialog", "Horizontal", 0));
         label_2->setText(QApplication::translate("LauncherDialog", "Vertical", 0));
-        CB_EXF_R->setText(QApplication::translate("LauncherDialog", "Extra Finger (R)", 0));
-        CB_EXF_L->setText(QApplication::translate("LauncherDialog", "Extra Finger (L)", 0));
+        CB_2F_R->setText(QApplication::translate("LauncherDialog", "New 2-Finger (R)", 0));
+        CB_2F_L->setText(QApplication::translate("LauncherDialog", "New 2-Finger (L)", 0));
         BTN_STOP_DAEMON->setText(QApplication::translate("LauncherDialog", "Stop Daemon", 0));
         BTN_CHANGE_GUI->setText(QApplication::translate("LauncherDialog", "Change\n"
 "GUI", 0));

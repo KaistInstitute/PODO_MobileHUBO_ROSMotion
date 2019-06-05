@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = PODOGUI1.0.0
-DISTDIR = /home/yujin/Desktop/toPeoPle_GIT/MobileHubo/build/PODOGUIBuild/.tmp/PODOGUI1.0.0
+DISTDIR = /home/rainbow/Desktop/MobileHubo/build/PODOGUIBuild/.tmp/PODOGUI1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt5.7.0/5.7/gcc_64/lib
 LIBS          = $(SUBLIBS) -L../../share/Libs/ -lRBModel -L/opt/Qt5.7.0/5.7/gcc_64/lib -lQt5OpenGL -L/usr/lib64 -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Network -lQt5Core -lGL -lpthread 
@@ -121,15 +121,11 @@ DIST          = /opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bluetooth.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bootstrap_private.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_charts.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_charts_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_clucene_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_concurrent.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_core.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_core_private.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_dbus.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_designer.pri \
@@ -313,15 +309,11 @@ Makefile: ../../src/PODOGUI/PODOGUI.pro /opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g+
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bluetooth.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bootstrap_private.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_charts.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_charts_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_clucene_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_concurrent.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_core.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_core_private.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri \
-		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_dbus.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_designer.pri \
@@ -474,15 +466,11 @@ Makefile: ../../src/PODOGUI/PODOGUI.pro /opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g+
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bluetooth.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bluetooth_private.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_bootstrap_private.pri:
-/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_charts.pri:
-/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_charts_private.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_clucene_private.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_concurrent.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_core.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_core_private.pri:
-/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri:
-/opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_dbus.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/modules/qt_lib_designer.pri:
@@ -1142,9 +1130,10 @@ moc_GUIMainWindow.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		../../src/PODOGUI/BasicFiles/SettingDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidget \
 		../../src/PODOGUI/CMDDialog.h \
+		../../share/Headers/Command.h \
 		../../src/PODOGUI/GUIMainWindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/GUIMainWindow.h -o moc_GUIMainWindow.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/GUIMainWindow.h -o moc_GUIMainWindow.cpp
 
 moc_RBTCPClient.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/QTcpSocket \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/qtcpsocket.h \
@@ -1221,7 +1210,7 @@ moc_RBTCPClient.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/QTcpSocket \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTextStream \
 		../../src/PODOGUI/LAN/RBTCPClient.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/LAN/RBTCPClient.h -o moc_RBTCPClient.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/LAN/RBTCPClient.h -o moc_RBTCPClient.cpp
 
 moc_RBTCPServer.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/QTcpServer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/qtcpserver.h \
@@ -1301,7 +1290,7 @@ moc_RBTCPServer.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/QTcpServer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTextStream \
 		../../src/PODOGUI/LAN/RBTCPServer.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/LAN/RBTCPServer.h -o moc_RBTCPServer.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/LAN/RBTCPServer.h -o moc_RBTCPServer.cpp
 
 moc_LANDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -1421,7 +1410,7 @@ moc_LANDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../share/Headers/UserSharedMemory.h \
 		../../src/PODOGUI/BasicFiles/LANDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/LANDialog.h -o moc_LANDialog.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/LANDialog.h -o moc_LANDialog.cpp
 
 moc_PODOALDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -1572,7 +1561,7 @@ moc_PODOALDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../share/Headers/JointInformation.h \
 		../../src/PODOGUI/BasicFiles/PODOALDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/PODOALDialog.h -o moc_PODOALDialog.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/PODOALDialog.h -o moc_PODOALDialog.cpp
 
 moc_JointDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -1703,7 +1692,7 @@ moc_JointDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../share/Headers/JointInformation.h \
 		../../src/PODOGUI/BasicFiles/JointDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/JointDialog.h -o moc_JointDialog.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/JointDialog.h -o moc_JointDialog.cpp
 
 moc_SensorDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -1834,7 +1823,7 @@ moc_SensorDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../share/Headers/JointInformation.h \
 		../../src/PODOGUI/BasicFiles/SensorDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/SensorDialog.h -o moc_SensorDialog.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/SensorDialog.h -o moc_SensorDialog.cpp
 
 moc_ModelDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -2322,7 +2311,7 @@ moc_ModelDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../share/Headers/JointInformation.h \
 		../../src/PODOGUI/BasicFiles/ModelDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/ModelDialog.h -o moc_ModelDialog.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/ModelDialog.h -o moc_ModelDialog.cpp
 
 moc_SettingDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -2473,7 +2462,7 @@ moc_SettingDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../share/Headers/JointInformation.h \
 		../../src/PODOGUI/BasicFiles/SettingDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/SettingDialog.h -o moc_SettingDialog.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/BasicFiles/SettingDialog.h -o moc_SettingDialog.cpp
 
 moc_CMDDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -2573,9 +2562,60 @@ moc_CMDDialog.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		../../src/PODOGUI/BasicFiles/PODOALDialog.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QListWidgetItem \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlistwidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		../../src/PODOGUI/CommonHeader.h \
+		../../src/PODOGUI/BasicFiles/LANDialog.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QSettings \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsettings.h \
+		../../src/PODOGUI/LAN/RBTCPClient.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../src/PODOGUI/LAN/RBLANCommon.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QByteArray \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QVector \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		../../src/PODOGUI/LAN/RBLog.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTextStream \
+		../../share/Headers/LANData/RBLANData.h \
+		../../share/Headers/RBSharedMemory.h \
+		../../share/Headers/UserSharedMemory.h \
+		../../src/PODOGUI/BasicFiles/RBDataBase.h \
+		../../src/PODOGUI/BasicFiles/RBLog.h \
+		../../src/PODOGUI/BasicFiles/RBDataType.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/QSqlDatabase \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/qsqldatabase.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/qsql.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/QSqlQuery \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/qsqlquery.h \
+		../../share/Headers/JointInformation.h \
+		../../share/Headers/Command.h \
 		../../src/PODOGUI/CMDDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
-	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/src/PODOGUI -I/home/yujin/Desktop/toPeoPle_GIT/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/CMDDialog.h -o moc_CMDDialog.cpp
+	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/rainbow/Desktop/MobileHubo/src/PODOGUI -I/home/rainbow/Desktop/MobileHubo/share/Headers/RBModel -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtSql -I/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../src/PODOGUI/CMDDialog.h -o moc_CMDDialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -3118,6 +3158,7 @@ main.o: ../../src/PODOGUI/main.cpp ../../src/PODOGUI/GUIMainWindow.h \
 		../../src/PODOGUI/BasicFiles/SettingDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidget \
 		../../src/PODOGUI/CMDDialog.h \
+		../../share/Headers/Command.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../src/PODOGUI/main.cpp
 
@@ -3615,6 +3656,7 @@ GUIMainWindow.o: ../../src/PODOGUI/GUIMainWindow.cpp ../../src/PODOGUI/GUIMainWi
 		../../src/PODOGUI/BasicFiles/SettingDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidget \
 		../../src/PODOGUI/CMDDialog.h \
+		../../share/Headers/Command.h \
 		ui_GUIMainWindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
@@ -4535,7 +4577,6 @@ SensorDialog.o: ../../src/PODOGUI/BasicFiles/SensorDialog.cpp ../../src/PODOGUI/
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGroupBox \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgroupbox.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
@@ -4564,6 +4605,7 @@ SensorDialog.o: ../../src/PODOGUI/BasicFiles/SensorDialog.cpp ../../src/PODOGUI/
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SensorDialog.o ../../src/PODOGUI/BasicFiles/SensorDialog.cpp
 
@@ -5344,7 +5386,97 @@ CMDDialog.o: ../../src/PODOGUI/CMDDialog.cpp ../../src/PODOGUI/CMDDialog.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_CMDDialog.h
+		../../src/PODOGUI/BasicFiles/PODOALDialog.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QListWidgetItem \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlistwidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		../../src/PODOGUI/CommonHeader.h \
+		../../src/PODOGUI/BasicFiles/LANDialog.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QSettings \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsettings.h \
+		../../src/PODOGUI/LAN/RBTCPClient.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../src/PODOGUI/LAN/RBLANCommon.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QByteArray \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QVector \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		../../src/PODOGUI/LAN/RBLog.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTextStream \
+		../../share/Headers/LANData/RBLANData.h \
+		../../share/Headers/RBSharedMemory.h \
+		../../share/Headers/UserSharedMemory.h \
+		../../src/PODOGUI/BasicFiles/RBDataBase.h \
+		../../src/PODOGUI/BasicFiles/RBLog.h \
+		../../src/PODOGUI/BasicFiles/RBDataType.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/QSqlDatabase \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/qsqldatabase.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/qsql.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/QSqlQuery \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtSql/qsqlquery.h \
+		../../share/Headers/JointInformation.h \
+		../../share/Headers/Command.h \
+		ui_CMDDialog.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFrame \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QRadioButton \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qradiobutton.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidget \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtablewidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtableview.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QVBoxLayout \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CMDDialog.o ../../src/PODOGUI/CMDDialog.cpp
 
 moc_GUIMainWindow.o: moc_GUIMainWindow.cpp 

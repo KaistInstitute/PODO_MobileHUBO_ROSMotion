@@ -288,16 +288,16 @@ QGroupBox::title {
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QCheckBox" name="CB_EXF_R">
+      <widget class="QCheckBox" name="CB_2F_R">
        <property name="text">
-        <string>Extra Finger (R)</string>
+        <string>New 2-Finger (R)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QCheckBox" name="CB_EXF_L">
+      <widget class="QCheckBox" name="CB_2F_L">
        <property name="text">
-        <string>Extra Finger (L)</string>
+        <string>New 2-Finger (L)</string>
        </property>
       </widget>
      </item>

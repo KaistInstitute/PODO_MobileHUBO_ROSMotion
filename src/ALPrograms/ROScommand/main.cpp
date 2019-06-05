@@ -307,7 +307,7 @@ int main(int argc, char *argv[])
         case MODE_SAVE:
         {
             FILE_LOG(logSUCCESS) << "NEW COMMAND :: DATA SAVE11";
-            fp = fopen("/home/yujin/Desktop/dataPODO.txt","w");
+            fp = fopen("dataPODO.txt","w");
             for(int i=0;i<Save_Index;i++)
             {
                 for(int j=0;j<COL;j++)fprintf(fp,"%g\t", Save_Data[j][i]);
@@ -323,13 +323,34 @@ int main(int argc, char *argv[])
 
         if(sharedROS->COMMAND.CMD_GRIPPER != GRIPPER_BREAK)
         {
-            joint->RefreshToCurrentReference(GRIPPERonly);
-            usleep(50*1000);
-            joint->SetAllMotionOwner();
-            FLAG_Gripper = true;
-            MODE_Gripper = sharedROS->COMMAND.CMD_GRIPPER;
-            PARA_Gripper = sharedROS->Gripper_action.mode;
-            sharedROS->COMMAND.CMD_GRIPPER = GRIPPER_BREAK;
+            if(FLAG_Gripper != true)
+            {
+                joint->RefreshToCurrentReference(GRIPPERonly);
+                usleep(50*1000);
+                joint->SetAllMotionOwner();
+                FLAG_Gripper = true;
+                MODE_Gripper = sharedROS->COMMAND.CMD_GRIPPER;
+                SIDE_Gripper = sharedROS->Gripper_action.side;
+                if(SIDE_Gripper == GRIPPER_RIGHT)
+                {
+                    MODE_RGripper = MODE_Gripper;
+                }else if(SIDE_Gripper == GRIPPER_LEFT)
+                {
+                    MODE_LGripper = MODE_Gripper;
+                }else
+                {
+                    MODE_RGripper = MODE_Gripper;
+                    MODE_LGripper = MODE_Gripper;
+                }
+                DESIRED_Gripper = sharedROS->Gripper_action.desired_mm;
+
+                CalculateLIMITGripper();
+                sharedROS->COMMAND.CMD_GRIPPER = GRIPPER_BREAK;
+            }else
+            {
+                FILE_LOG(logERROR) << "Duplicate Gripper Commands";
+                sharedROS->COMMAND.CMD_GRIPPER = GRIPPER_BREAK;
+            }
         }
 
         switch(sharedROS->COMMAND.CMD_WHEEL)
@@ -386,19 +407,47 @@ int main(int argc, char *argv[])
         }
         case BASICCMD_GRIPPER:
         {
-            joint->RefreshToCurrentReference(GRIPPERonly);
-            usleep(50*1000);
-            joint->SetAllMotionOwner();
-            FLAG_Gripper = true;
-            MODE_Gripper = sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[0];
-            PARA_Gripper = sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[1];
+            if(FLAG_Gripper != true)
+            {
+                joint->RefreshToCurrentReference(GRIPPERonly);
+                usleep(50*1000);
+                joint->SetAllMotionOwner();
+                FLAG_Gripper = true;
+                MODE_Gripper = sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[0];
+                SIDE_Gripper = sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[1];
+                if(SIDE_Gripper == GRIPPER_RIGHT)
+                {
+                    MODE_RGripper = MODE_Gripper;
+                }else if(SIDE_Gripper == GRIPPER_LEFT)
+                {
+                    MODE_LGripper = MODE_Gripper;
+                }else
+                {
+                    MODE_RGripper = MODE_Gripper;
+                    MODE_LGripper = MODE_Gripper;
+                }
+                DESIRED_Gripper = sharedCMD->COMMAND[PODO_NO].USER_PARA_DOUBLE[0];
 
-            sharedCMD->COMMAND[PODO_NO].USER_COMMAND = COMMAND_BREAK;
+                CalculateLIMITGripper();
+                sharedCMD->COMMAND[PODO_NO].USER_COMMAND = COMMAND_BREAK;
+            }else
+            {
+                FILE_LOG(logERROR) << "Duplicate Gripper Commands";
+                sharedCMD->COMMAND[PODO_NO].USER_COMMAND = COMMAND_BREAK;
+            }
             break;
-
         }
         case BASICCMD_SAVE:
         {
+            FILE_LOG(logSUCCESS) << "NEW COMMAND :: DATA SAVE11";
+            fp = fopen("dataPODO.txt","w");
+            for(int i=0;i<Save_Index;i++)
+            {
+                for(int j=0;j<COL;j++)fprintf(fp,"%g\t", Save_Data[j][i]);
+                fprintf(fp,"\n");
+            }
+            fclose(fp);
+            FILE_LOG(logSUCCESS) << "Data Save Complete";
             sharedCMD->COMMAND[PODO_NO].USER_COMMAND = COMMAND_BREAK;
             break;
         }
@@ -484,6 +533,7 @@ void RBTaskThread(void *)
             if(WBmotion->isDoneMove() == true)
             {
                 sharedROS->state_arm = ROBOT_NOT_MOVE;
+                WB_FLAG = false;
             }
 
             for(int i=RHY; i<=LAR; i++)
@@ -1752,8 +1802,6 @@ void ManualMoveRHand()
         manual_quat = manual_quat_before;
     }
 
-
-
     //------------------------Finger-----------------------------------------------
     joint->SetJointRefAngle(RHAND, Grasping_value);
     if(sharedSEN->EXF_R_Enabled){
@@ -2277,40 +2325,59 @@ void GripperTH()
 {
     if(FLAG_Gripper == true)
     {
-        switch(MODE_Gripper)
+        //get position of each Gripper//
+        float EncoderRHAND = sharedSEN->ENCODER[MC_ID_CH_Pairs[RHAND].id][MC_ID_CH_Pairs[RHAND].ch].CurrentPosition;
+        float EncoderLHAND = sharedSEN->ENCODER[MC_ID_CH_Pairs[LHAND].id][MC_ID_CH_Pairs[LHAND].ch].CurrentPosition;
+        //set velocity of each Gripper//
+        int velocityRGripper = 130;
+        int velocityLGripper = 130;
+        if(sharedSEN->EXF_L_Enabled)
+            velocityLGripper = 130;
+        if(sharedSEN->EXF_R_Enabled)
+            velocityRGripper = 130;
+
+        static int DoneR, DoneL = false;
+
+        if(SIDE_Gripper == GRIPPER_RIGHT)
+        {
+            DoneR = false;
+            DoneL = true;
+        }else if(SIDE_Gripper == GRIPPER_LEFT)
+        {
+            DoneR = true;
+            DoneL = false;
+        }else
+        {
+            DoneR = false;
+            DoneL = false;
+        }
+        switch(MODE_RGripper)
         {
         case GRIPPER_STOP:
         {
-            printf("gripper stop\n");
             joint->SetJointRefAngle(RHAND, 0);
-            joint->SetJointRefAngle(LHAND, 0);
-            FLAG_Gripper = false;
+            DoneR = true;
             break;
         }
         case GRIPPER_OPEN:
         {
             static int gripper_cnt = 0;
+            DoneR = false;
             if(gripper_cnt > MAX_GRIPPER_CNT)
             {
-                FILE_LOG(logINFO) << "Gripper open done";
-                MODE_Gripper = GRIPPER_STOP;
-                FLAG_Gripper = GRIPPER_BOTH;
+                FILE_LOG(logINFO) << "Right Gripper open stop (time over)";
+                MODE_RGripper = GRIPPER_STOP;
                 gripper_cnt = 0;
                 break;
             }
-//            printf("gripper_cnt = %d\n",gripper_cnt);
-
-            if(PARA_Gripper == GRIPPER_RIGHT)
-            {//open only right gripper
-                joint->SetJointRefAngle(RHAND, -130);
-            } else if(PARA_Gripper == GRIPPER_LEFT)
-            {//open only left gripper
-                joint->SetJointRefAngle(LHAND, -130);
-            } else
-            {//open both gripper
-                joint->SetJointRefAngle(RHAND, -130);
-                joint->SetJointRefAngle(LHAND, -130);
+            if(EncoderRHAND < LIMIT_RGripper)
+            {//open done
+                FILE_LOG(logSUCCESS) << "Right Gripper open done";
+                MODE_RGripper = GRIPPER_STOP;
+                gripper_cnt = 0;
+                break;
             }
+            joint->SetJointRefAngle(RHAND, -velocityRGripper);
 
             gripper_cnt++;
             break;
@@ -2318,31 +2385,146 @@ void GripperTH()
         case GRIPPER_CLOSE:
         {
             static int gripper_cnt = 0;
+            DoneR = false;
             if(gripper_cnt > MAX_GRIPPER_CNT)
             {
-                FILE_LOG(logINFO) << "Gripper close done";
-                MODE_Gripper = GRIPPER_STOP;
-                FLAG_Gripper = GRIPPER_BOTH;
+                FILE_LOG(logINFO) << "Right Gripper close stop (time over)";
+                MODE_RGripper = GRIPPER_STOP;
                 gripper_cnt = 0;
                 break;
             }
-//            printf("gripper_cnt = %d\n",gripper_cnt);
-            if(PARA_Gripper == GRIPPER_RIGHT)
-            {//close only right gripper
-                joint->SetJointRefAngle(RHAND, 130);
-            } else if(PARA_Gripper == GRIPPER_LEFT)
-            {//close only left gripper
-                joint->SetJointRefAngle(LHAND, 130);
-            } else
-            {//close both gripper
-                joint->SetJointRefAngle(RHAND, 130);
-                joint->SetJointRefAngle(LHAND, 130);
+            if(EncoderRHAND > LIMIT_RGripper)
+            {//grasp done
+                FILE_LOG(logSUCCESS) << "Right Gripper grasp done";
+                MODE_RGripper = GRIPPER_STOP;
+                gripper_cnt = 0;
+                break;
             }
+            joint->SetJointRefAngle(RHAND, velocityRGripper);
             gripper_cnt++;
             break;
         }
         }
+
+        switch(MODE_LGripper)
+        {
+        case GRIPPER_STOP:
+        {
+            joint->SetJointRefAngle(LHAND, 0);
+            DoneL = true;
+            break;
+        }
+        case GRIPPER_OPEN:
+        {
+            static int gripper_cnt = 0;
+            DoneL = false;
+            if(gripper_cnt > MAX_GRIPPER_CNT)
+            {
+                FILE_LOG(logINFO) << "Left Gripper open stop (time over)";
+                MODE_LGripper = GRIPPER_STOP;
+                gripper_cnt = 0;
+                break;
+            }
+            if(EncoderLHAND < LIMIT_LGripper)
+            {//open done
+                FILE_LOG(logSUCCESS) << "Left Gripper open done";
+                MODE_LGripper = GRIPPER_STOP;
+                gripper_cnt = 0;
+                break;
+            }
+            joint->SetJointRefAngle(LHAND, -velocityLGripper);
+            gripper_cnt++;
+            break;
+        }
+        case GRIPPER_CLOSE:
+        {
+            static int gripper_cnt = 0;
+            DoneL = false;
+            if(gripper_cnt > MAX_GRIPPER_CNT)
+            {
+                FILE_LOG(logINFO) << "Left Gripper close stop (time over)";
+                MODE_LGripper = GRIPPER_STOP;
+                gripper_cnt = 0;
+                break;
+            }
+            if(EncoderLHAND > LIMIT_LGripper)
+            {//grasp done
+                FILE_LOG(logSUCCESS) << "Left Gripper grasp done";
+                MODE_LGripper = GRIPPER_STOP;
+                gripper_cnt = 0;
+                break;
+            }
+            joint->SetJointRefAngle(LHAND, velocityLGripper);
+            gripper_cnt++;
+            break;
+        }
+        }
+
+        if(DoneR && DoneL)
+        {
+            FILE_LOG(logSUCCESS) << "Both Gripper move done!!";
+            FLAG_Gripper = false;
+        }
     }
+}
+
+void CalculateLIMITGripper()
+{
+    double MaxOpenGripperEncoder = -36.8;
+    double MaxOpenGripperDistance = 119;
+    if(sharedSEN->EXF_L_Enabled)
+    {
+        if(DESIRED_Gripper == 0)
+        {//default(max open or close)
+            if(MODE_Gripper == GRIPPER_OPEN)
+            {
+                LIMIT_LGripper = MaxOpenGripperEncoder;
+            }else
+            {
+                LIMIT_LGripper = 0.;
+            }
+        }else
+        {
+            LIMIT_LGripper = (DESIRED_Gripper*MaxOpenGripperEncoder)/MaxOpenGripperDistance;
+        }
+    }else
+    {
+        if(MODE_Gripper == GRIPPER_OPEN)
+        {
+            LIMIT_LGripper = -8.;
+        }else
+        {
+            LIMIT_LGripper = 0.;
+        }
+    }
+
+    if(sharedSEN->EXF_R_Enabled)
+    {
+        if(DESIRED_Gripper == 0)
+        {//default(max open or close)
+            if(MODE_Gripper == GRIPPER_OPEN)
+            {
+                LIMIT_RGripper = MaxOpenGripperEncoder;
+            }else
+            {
+                LIMIT_RGripper = 0.;
+            }
+        }else
+        {
+            LIMIT_RGripper = -DESIRED_Gripper;//(DESIRED_Gripper*MaxOpenGripperEncoder)/MaxOpenGripperDistance;
+        }
+    }else
+    {
+        if(MODE_Gripper == GRIPPER_OPEN)
+        {
+            LIMIT_RGripper = -8.;
+        }else
+        {
+            LIMIT_RGripper = 0.;
+        }
+    }
+    printf("Desired_Distance : %f\nDesired_Encoder : %f\n",DESIRED_Gripper,LIMIT_RGripper);
+
 }
 
 void ROS_Joint_Publish()
@@ -2492,6 +2674,8 @@ void save()
         Save_Data[10][Save_Index] = sharedROS->joint_before[rosREB].reference;
         Save_Data[11][Save_Index] = sharedROS->Arm_action.joint[rosWST].reference;
 
+        Save_Data[12][Save_Index] = sharedSEN->ENCODER[MC_ID_CH_Pairs[RHAND].id][MC_ID_CH_Pairs[RHAND].ch].CurrentPosition;
+        Save_Data[13][Save_Index] = MODE_RGripper;
 
         Save_Index++;
         if(Save_Index >= ROW) Save_Index = 0;

@@ -18,7 +18,7 @@ void RBTCPServer::RBServerOpen(QHostAddress::SpecialAddress _host, quint16 _port
     connect(RBTcpServer, SIGNAL(newConnection()), this, SLOT(RBNewConnection()));
 
     if(!RBTcpServer->listen(RBHostAddress, RBPortNumber)){
-        FILE_LOG(logERROR) << "RBServer unable to start the server";
+        FILE_LOG(logERROR) << "RBServer unable to start the server " << RBPortNumber;
     }else{
         FILE_LOG(logSUCCESS) << "RBServer open successed with port(" << RBTcpServer->serverPort() << ")";
     }

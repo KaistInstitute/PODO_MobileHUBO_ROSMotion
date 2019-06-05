@@ -46,8 +46,8 @@ OpticalDisplacement     ODHandler;
 int     __IS_GAZEBO = false;
 int     __IS_FOG = false;
 int     __IS_ROS = true;
-int     __IS_EXF_R = false;     // extra finger right
-int     __IS_EXF_L = false;     // extra finger left
+int     __IS_2F_R = false;     // extra finger right
+int     __IS_2F_L = false;     // extra finger left
 float   EXF_R_Modifier[5] = {0.0, };
 float   EXF_L_Modifier[5] = {0.0, };
 
@@ -251,10 +251,10 @@ void CheckArguments(int argc, char *argv[]){
             break;
         case 'e':
             extrafinger = atoi(optarg);
-            if(extrafinger & 0x01 == 0x01)      __IS_EXF_R = true;
-            else                                __IS_EXF_R = false;
-            if((extrafinger>>1) & 0x01 == 0x01) __IS_EXF_L = true;
-            else                                __IS_EXF_L = false;
+            if(extrafinger & 0x01 == 0x01)      __IS_2F_R = true;
+            else                                __IS_2F_R = false;
+            if((extrafinger>>1) & 0x01 == 0x01) __IS_2F_L = true;
+            else                                __IS_2F_L = false;
             break;
         case '?':
             if(optopt == 'g'){
@@ -277,8 +277,8 @@ void CheckArguments(int argc, char *argv[]){
     else                FILE_LOG(logWARNING) << "FOG is not used";
     if(__IS_ROS)        FILE_LOG(logWARNING) << "ROS is used";
     else                FILE_LOG(logWARNING) << "ROS is not used";
-    if(__IS_EXF_R)      FILE_LOG(logWARNING) << "Extra Right Finger is used";
-    if(__IS_EXF_L)      FILE_LOG(logWARNING) << "Extra Left Finger is used";
+    if(__IS_2F_R)      FILE_LOG(logWARNING) << "2-Finger Right is used";
+    if(__IS_2F_L)      FILE_LOG(logWARNING) << "2-Finger Left is used";
     FILE_LOG(logERROR) << "=================================";
     cout << endl;
 }
@@ -318,44 +318,8 @@ int main(int argc, char *argv[])
 
 
     // set EXF setting in shared memory
-    sharedSEN->EXF_R_Enabled = __IS_EXF_R;
-    sharedSEN->EXF_L_Enabled = __IS_EXF_L;
-
-    settingFile = "configs/FingerConfig.ini";
-    QSettings settings(settingFile, QSettings::NativeFormat);
-    if(__IS_EXF_R){
-        EXF_R_Modifier[0] = settings.value("exfr0", "").toFloat();
-        EXF_R_Modifier[1] = settings.value("exfr1", "").toFloat();
-        EXF_R_Modifier[2] = settings.value("exfr2", "").toFloat();
-        EXF_R_Modifier[3] = settings.value("exfr3", "").toFloat();
-        EXF_R_Modifier[4] = settings.value("exfr4", "").toFloat();
-    }
-    if(__IS_EXF_L){
-        EXF_L_Modifier[0] = settings.value("exfl0", "").toFloat();
-        EXF_L_Modifier[1] = settings.value("exfl1", "").toFloat();
-        EXF_L_Modifier[2] = settings.value("exfl2", "").toFloat();
-        EXF_L_Modifier[3] = settings.value("exfl3", "").toFloat();
-        EXF_L_Modifier[4] = settings.value("exfl4", "").toFloat();
-    }
-
-    // set defalut 1.0 value if it is not set yet
-    for(int i=0; i<5; i++){
-        if(EXF_R_Modifier[i] <= 0.01){
-            settings.setValue(QString().sprintf("exfr%d", i), 1.0);
-            EXF_R_Modifier[i] = 1.0;
-        }
-        if(EXF_L_Modifier[i] <= 0.01){
-            settings.setValue(QString().sprintf("exfl%d", i), 1.0);
-            EXF_L_Modifier[i] = 1.0;
-        }
-    }
-
-    for(int i=0; i<5; i++){
-        sharedSEN->EXF_R_Modifier[i] = EXF_R_Modifier[i];
-        sharedSEN->EXF_L_Modifier[i] = EXF_L_Modifier[i];
-    }
-
-
+    sharedSEN->EXF_R_Enabled = __IS_2F_R;
+    sharedSEN->EXF_L_Enabled = __IS_2F_L;
 
     while(IS_WORKING){
         usleep(100*1000);
@@ -411,15 +375,6 @@ int main(int argc, char *argv[])
             }
             sharedCMD->COMMAND[RBCORE_PODO_NO].USER_COMMAND = NO_ACT;
             break;
-
-        case DAEMON_INIT_SET_FINGER_MODIFIER:
-            FILE_LOG(logINFO) << "CMD: DAEMON_INIT_SET_FINGER_MODIFIER";
-
-            RBCMD_InitSetFingerModifier();
-
-            sharedCMD->COMMAND[RBCORE_PODO_NO].USER_COMMAND = NO_ACT;
-            break;
-
         case DAEMON_ATTR_SWITCHING_MODE:
             FILE_LOG(logINFO) << "CMD: DAEMON_ATTR_SWITCHING_MODE";
             if(__IS_GAZEBO) {FILE_LOG(logINFO) << "Gazebo doesn't need DAEMON_ATTR_SWITCHING_MODE";}
@@ -745,8 +700,8 @@ void RBCore_RTThreadCon(void *)
         // Write CAN Reference =======================================
         for(int i=0; i<_NO_OF_MC; i++){
             // skip if the extra finger is not set
-            if(!__IS_EXF_R && (i==25 || i==26))     continue;
-            if(!__IS_EXF_L && (i==27 || i==28))     continue;
+            if(i==25 || i==26)     continue;
+            if(i==27 || i==28)     continue;
             if(_DEV_MC[i].CAN_CHANNEL == -1)        continue;
 
             for(int j=0; j<_DEV_MC[i].MOTOR_CHANNEL; j++){
@@ -1249,46 +1204,6 @@ void RBCMD_InitFindHome(){
             usleep(100);
             _DEV_MC[21].RBJoint_FindHome(2);
 
-            if(__IS_EXF_R){
-                _DEV_MC[25].RBJoint_ResetEncoder(1);
-                _DEV_MC[26].RBJoint_ResetEncoder(1);
-                sharedCMD->MotionOwner[25][0] = RBCORE_PODO_NO;
-                sharedCMD->MotionOwner[26][0] = RBCORE_PODO_NO;
-                for(int k=0; k<_NO_OF_AL; k++){
-                    sharedREF->JointReference[k][25][0] = 0.0;
-                    sharedREF->JointReference[k][26][0] = 0.0;
-                }
-                _DEV_MC[25].Joints[0].Reference = 0.0;
-                _DEV_MC[26].Joints[0].Reference = 0.0;
-                _DEV_MC[25].MoveJoints[0].RefAngleCurrent = 0.0;
-                _DEV_MC[26].MoveJoints[0].RefAngleCurrent = 0.0;
-
-                _DEV_MC[25].RBJoint_EnableFETDriver(1, 1);
-                _DEV_MC[26].RBJoint_EnableFETDriver(1, 1);
-                usleep(100);
-                _DEV_MC[25].RBJoint_FindHome(1);
-                _DEV_MC[26].RBJoint_FindHome(1);
-
-
-                _DEV_MC[25].RBJoint_ResetEncoder(2);
-                _DEV_MC[26].RBJoint_ResetEncoder(2);
-                sharedCMD->MotionOwner[25][1] = RBCORE_PODO_NO;
-                sharedCMD->MotionOwner[26][1] = RBCORE_PODO_NO;
-                for(int k=0; k<_NO_OF_AL; k++){
-                    sharedREF->JointReference[k][25][1] = 0.0;
-                    sharedREF->JointReference[k][26][1] = 0.0;
-                }
-                _DEV_MC[25].Joints[1].Reference = 0.0;
-                _DEV_MC[26].Joints[1].Reference = 0.0;
-                _DEV_MC[25].MoveJoints[1].RefAngleCurrent = 0.0;
-                _DEV_MC[26].MoveJoints[1].RefAngleCurrent = 0.0;
-
-                _DEV_MC[25].RBJoint_EnableFETDriver(2, 1);
-                _DEV_MC[26].RBJoint_EnableFETDriver(2, 1);
-                usleep(100);
-                _DEV_MC[25].RBJoint_FindHome(2);
-                _DEV_MC[26].RBJoint_FindHome(2);
-            }
         }
 
         if(((right_left>>1) & 0x01) == 0x01){
@@ -1304,47 +1219,6 @@ void RBCMD_InitFindHome(){
             _DEV_MC[22].RBJoint_EnableFETDriver(2, 1);
             usleep(100);
             _DEV_MC[22].RBJoint_FindHome(2);
-
-            if(__IS_EXF_R){
-                _DEV_MC[27].RBJoint_ResetEncoder(1);
-                _DEV_MC[28].RBJoint_ResetEncoder(1);
-                sharedCMD->MotionOwner[27][0] = RBCORE_PODO_NO;
-                sharedCMD->MotionOwner[28][0] = RBCORE_PODO_NO;
-                for(int k=0; k<_NO_OF_AL; k++){
-                    sharedREF->JointReference[k][27][0] = 0.0;
-                    sharedREF->JointReference[k][28][0] = 0.0;
-                }
-                _DEV_MC[27].Joints[0].Reference = 0.0;
-                _DEV_MC[28].Joints[0].Reference = 0.0;
-                _DEV_MC[27].MoveJoints[0].RefAngleCurrent = 0.0;
-                _DEV_MC[28].MoveJoints[0].RefAngleCurrent = 0.0;
-
-                _DEV_MC[27].RBJoint_EnableFETDriver(1, 1);
-                _DEV_MC[28].RBJoint_EnableFETDriver(1, 1);
-                usleep(100);
-                _DEV_MC[27].RBJoint_FindHome(1);
-                _DEV_MC[28].RBJoint_FindHome(1);
-
-
-                _DEV_MC[27].RBJoint_ResetEncoder(2);
-                _DEV_MC[28].RBJoint_ResetEncoder(2);
-                sharedCMD->MotionOwner[27][1] = RBCORE_PODO_NO;
-                sharedCMD->MotionOwner[28][1] = RBCORE_PODO_NO;
-                for(int k=0; k<_NO_OF_AL; k++){
-                    sharedREF->JointReference[k][27][1] = 0.0;
-                    sharedREF->JointReference[k][28][1] = 0.0;
-                }
-                _DEV_MC[27].Joints[1].Reference = 0.0;
-                _DEV_MC[28].Joints[1].Reference = 0.0;
-                _DEV_MC[27].MoveJoints[1].RefAngleCurrent = 0.0;
-                _DEV_MC[28].MoveJoints[1].RefAngleCurrent = 0.0;
-
-                _DEV_MC[27].RBJoint_EnableFETDriver(2, 1);
-                _DEV_MC[28].RBJoint_EnableFETDriver(2, 1);
-                usleep(100);
-                _DEV_MC[27].RBJoint_FindHome(2);
-                _DEV_MC[28].RBJoint_FindHome(2);
-            }
         }
     }else{
         if(id == -1){ // All
@@ -1413,45 +1287,6 @@ void RBCMD_InitControlOnOff(){
         }
     }else{  // Each
         _DEV_MC[id].RBJoint_EnableFeedbackControl(ch+1, onoff);
-    }
-}
-
-void RBCMD_InitSetFingerModifier(){
-    QSettings settings(settingFile, QSettings::NativeFormat);
-    if(sharedCMD->COMMAND[RBCORE_PODO_NO].USER_PARA_INT[0] == 1){
-        // just read current value
-    }else{
-        // set with new values (only available if the Daemon is turned on for extra finger
-        for(int i=0; i<5; i++){
-            //if(sharedCMD->COMMAND[RBCORE_PODO_NO].USER_PARA_CHAR[i] && __IS_EXF_R){
-            if(__IS_EXF_R){
-                settings.setValue(QString().sprintf("exfr%d",i), sharedCMD->COMMAND[RBCORE_PODO_NO].USER_PARA_FLOAT[i]);
-            }
-            //if(sharedCMD->COMMAND[RBCORE_PODO_NO].USER_PARA_CHAR[i+5] && __IS_EXF_L){
-            if(__IS_EXF_L){
-                settings.setValue(QString().sprintf("exfl%d",i), sharedCMD->COMMAND[RBCORE_PODO_NO].USER_PARA_FLOAT[i+5]);
-            }
-        }
-    }
-
-    if(__IS_EXF_R){
-        EXF_R_Modifier[0] = settings.value("exfr0", "").toFloat();
-        EXF_R_Modifier[1] = settings.value("exfr1", "").toFloat();
-        EXF_R_Modifier[2] = settings.value("exfr2", "").toFloat();
-        EXF_R_Modifier[3] = settings.value("exfr3", "").toFloat();
-        EXF_R_Modifier[4] = settings.value("exfr4", "").toFloat();
-    }
-    if(__IS_EXF_L){
-        EXF_L_Modifier[0] = settings.value("exfl0", "").toFloat();
-        EXF_L_Modifier[1] = settings.value("exfl1", "").toFloat();
-        EXF_L_Modifier[2] = settings.value("exfl2", "").toFloat();
-        EXF_L_Modifier[3] = settings.value("exfl3", "").toFloat();
-        EXF_L_Modifier[4] = settings.value("exfl4", "").toFloat();
-    }
-
-    for(int i=0; i<5; i++){
-        sharedSEN->EXF_R_Modifier[i] = EXF_R_Modifier[i];
-        sharedSEN->EXF_L_Modifier[i] = EXF_L_Modifier[i];
     }
 }
 
@@ -1942,13 +1777,6 @@ int RBCore_CANInitialize(){
         for(int i=0; i<_NO_OF_SP; i++)   _DEV_SP[i].RBSP_AddCANMailBox();
         for(int i=0; i<_NO_OF_OF; i++)   _DEV_OF[i].RBOF_AddCANMailBox();
         IS_CAN_OK = true;
-
-        //info
-        for(int i=0;i<canHandler->RBCAN_GetCount();i++)
-        {
-            printf("Mail Box cnt = %d, id = %d\n",i,canHandler->RBCAN_GetId(i));
-        }
-
 
         return true;
     }

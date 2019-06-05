@@ -29,8 +29,8 @@ LauncherDialog::LauncherDialog(QWidget *parent) :
     }else{
         ui->RB_ROBOT->setChecked(true);
     }
-    ui->CB_EXF_R->setChecked(settings.value("exfr", "").toBool());
-    ui->CB_EXF_L->setChecked(settings.value("exfl", "").toBool());
+    ui->CB_2F_R->setChecked(settings.value("exfr", "").toBool());
+    ui->CB_2F_L->setChecked(settings.value("exfl", "").toBool());
     if(settings.value("fog", "").toBool()){
         ui->RB_FOG_OK->setChecked(true);
     }else{
@@ -143,7 +143,7 @@ void LauncherDialog::on_BTN_START_DAEMON_clicked(){
         arguments << "-e";
         arguments << "./"+fileInfo.fileName();
 
-        int exf_setting = ui->CB_EXF_R->isChecked() | (ui->CB_EXF_L->isChecked()<<1);
+        int exf_setting = ui->CB_2F_R->isChecked() | (ui->CB_2F_L->isChecked()<<1);
         arguments << "-e";
         arguments << QString().sprintf("%d", exf_setting);
 
@@ -183,8 +183,8 @@ void LauncherDialog::on_BTN_START_DAEMON_clicked(){
         settings.setValue("ros", ui->RB_ROS_OK->isChecked());
         settings.setValue("geo_hori", ui->SB_HORIZONTAL->text());
         settings.setValue("geo_vert", ui->SB_VERTICAL->text());
-        settings.setValue("exfr", ui->CB_EXF_R->isChecked());
-        settings.setValue("exfl", ui->CB_EXF_L->isChecked());
+        settings.setValue("exfr", ui->CB_2F_R->isChecked());
+        settings.setValue("exfl", ui->CB_2F_L->isChecked());
 
         ui->BTN_START_DAEMON->setEnabled(false);
         startDaemonAction->setEnabled(false);

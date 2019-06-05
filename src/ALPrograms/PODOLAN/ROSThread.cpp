@@ -130,7 +130,8 @@ void ROSWorker::ReadfromROS(){
     //read action
     sharedROS->Arm_action = RXData.ros2podo_data.Arm_action;
     sharedROS->Base_action = RXData.ros2podo_data.Base_action;
-    sharedROS->Gripper_action.mode = RXData.ros2podo_data.Gripper_action.mode;
+    sharedROS->Gripper_action.side = RXData.ros2podo_data.Gripper_action.side;
+    sharedROS->Gripper_action.desired_mm = RXData.ros2podo_data.Gripper_action.desired_mm;
 //    sharedROS->ROSindex = RXData.ros2podo_data.index;
     //read command
     sharedROS->COMMAND.CMD_GRIPPER = RXData.ros2podo_data.CMD_GRIPPER;

@@ -99,6 +99,7 @@ void CMDDialog::on_BTN_GRIPPER_OPEN_clicked()
         cmd.COMMAND_DATA.USER_PARA_INT[1] = GUI_GRIPPER_LEFT;
 
     cmd.COMMAND_DATA.USER_PARA_INT[0] = GUI_GRIPPER_OPEN;
+    cmd.COMMAND_DATA.USER_PARA_DOUBLE[0] = ui->LE_GRIPPER_INPUT->text().toDouble();
     pLAN->SendCommand(cmd);
 }
 
@@ -117,6 +118,7 @@ void CMDDialog::on_BTN_GRIPPER_STOP_clicked()
         cmd.COMMAND_DATA.USER_PARA_INT[1] = GUI_GRIPPER_LEFT;
 
     cmd.COMMAND_DATA.USER_PARA_INT[0] = GUI_GRIPPER_STOP;
+    cmd.COMMAND_DATA.USER_PARA_DOUBLE[0] = ui->LE_GRIPPER_INPUT->text().toDouble();
     pLAN->SendCommand(cmd);
 }
 
@@ -134,6 +136,7 @@ void CMDDialog::on_BTN_GRIPPER_CLOSE_clicked()
         cmd.COMMAND_DATA.USER_PARA_INT[1] = GUI_GRIPPER_LEFT;
 
     cmd.COMMAND_DATA.USER_PARA_INT[0] = GUI_GRIPPER_CLOSE;
+    cmd.COMMAND_DATA.USER_PARA_DOUBLE[0] = ui->LE_GRIPPER_INPUT->text().toDouble();
     pLAN->SendCommand(cmd);
 }
 
@@ -170,5 +173,13 @@ void CMDDialog::on_BTN_MOVESTOP_clicked()
     cmd.COMMAND_TARGET = ALNum_ROScommand;
     cmd.COMMAND_DATA.USER_COMMAND = MANUALCMD_JOYMOVE;
     cmd.COMMAND_DATA.USER_PARA_INT[0] = JOY_STOP;
+    pLAN->SendCommand(cmd);
+}
+
+void CMDDialog::on_pushButton_clicked()
+{
+    USER_COMMAND cmd;
+    cmd.COMMAND_TARGET = ALNum_ROScommand;
+    cmd.COMMAND_DATA.USER_COMMAND = BASICCMD_SAVE;
     pLAN->SendCommand(cmd);
 }

@@ -69,8 +69,13 @@ int WB_FLAG = false;
 int FLAG_JointPublish = false;
 int STATE_JointPublish = PUB_DONE;
 int FLAG_Gripper = false;
+int MODE_RGripper = 0;
+int MODE_LGripper = 0;
 int MODE_Gripper = 0;
-int PARA_Gripper = 0;
+int SIDE_Gripper = 0;
+double LIMIT_RGripper = 0.;
+double LIMIT_LGripper = 0.;
+double DESIRED_Gripper = 0.;
 
 int CheckMotionOwned();
 void CatchSignals(int _signal);
@@ -83,6 +88,7 @@ int RBInitialize(void);
 void save();
 void JOY_TH();
 void ReadJoy();
+void CalculateLIMITGripper();
 
 
 // Move Function //

@@ -25,7 +25,7 @@ typedef unsigned int            uint;
 class RBJoystick
 {
 public:
-    RBJoystick(const QString _devName = "/dev/input/js1");
+    RBJoystick(const QString _devName = "/dev/input/js0");
     ~RBJoystick();
 
     int		ConnectJoy();

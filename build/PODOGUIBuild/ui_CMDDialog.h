@@ -18,6 +18,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QTableWidget>
@@ -47,6 +48,10 @@ public:
     QPushButton *BTN_GRIPPER_OPEN;
     QPushButton *BTN_GRIPPER_STOP;
     QPushButton *BTN_GRIPPER_CLOSE;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *label;
+    QLineEdit *LE_GRIPPER_INPUT;
+    QLabel *label_5;
     QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_4;
@@ -59,6 +64,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QPushButton *BTN_JOYMOVE;
     QPushButton *BTN_MOVESTOP;
+    QPushButton *pushButton;
     QButtonGroup *GRB_GRIPPER;
 
     void setupUi(QDialog *CMDDialog)
@@ -103,7 +109,7 @@ public:
 
         layoutWidget1 = new QWidget(CMDDialog);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(390, 210, 301, 102));
+        layoutWidget1->setGeometry(QRect(400, 250, 358, 282));
         verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -171,6 +177,27 @@ public:
 
 
         verticalLayout_2->addLayout(horizontalLayout_3);
+
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        label = new QLabel(layoutWidget1);
+        label->setObjectName(QStringLiteral("label"));
+
+        horizontalLayout_7->addWidget(label);
+
+        LE_GRIPPER_INPUT = new QLineEdit(layoutWidget1);
+        LE_GRIPPER_INPUT->setObjectName(QStringLiteral("LE_GRIPPER_INPUT"));
+        LE_GRIPPER_INPUT->setMaxLength(32767);
+
+        horizontalLayout_7->addWidget(LE_GRIPPER_INPUT);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_7);
+
+        label_5 = new QLabel(layoutWidget1);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        verticalLayout_2->addWidget(label_5);
 
         layoutWidget2 = new QWidget(CMDDialog);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
@@ -295,12 +322,15 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_5);
 
+        pushButton = new QPushButton(CMDDialog);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(550, 150, 121, 51));
         layoutWidget->raise();
         layoutWidget->raise();
         layoutWidget->raise();
         label_2->raise();
         line->raise();
-        label_3->raise();
+        pushButton->raise();
 
         retranslateUi(CMDDialog);
 
@@ -320,6 +350,10 @@ public:
         BTN_GRIPPER_OPEN->setText(QApplication::translate("CMDDialog", "OPEN", 0));
         BTN_GRIPPER_STOP->setText(QApplication::translate("CMDDialog", "STOP", 0));
         BTN_GRIPPER_CLOSE->setText(QApplication::translate("CMDDialog", "CLOSE", 0));
+        label->setText(QApplication::translate("CMDDialog", "GripperLimit", 0));
+        LE_GRIPPER_INPUT->setInputMask(QString());
+        LE_GRIPPER_INPUT->setText(QString());
+        label_5->setText(QApplication::translate("CMDDialog", "<html><head/><body><p align=\"center\">*Help (GripperLimit)*</p><p align=\"center\">[3-finger]</p><p align=\"center\">0 : default(max open or close)</p><p align=\"center\">[2-finger]</p><p align=\"center\">0 : default(max open or close)</p><p align=\"center\">(mm) : desired value between finger tip</p></body></html>", 0));
         label_4->setText(QApplication::translate("CMDDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; font-weight:600;\">JoyStick</span></p></body></html>", 0));
         QTableWidgetItem *___qtablewidgetitem = JOY_TABLE_INFO_LEFT->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("CMDDialog", "Value", 0));
@@ -365,6 +399,7 @@ public:
         BTN_JOYSTOP->setText(QApplication::translate("CMDDialog", "Joy Stop", 0));
         BTN_JOYMOVE->setText(QApplication::translate("CMDDialog", "JoyMove Start", 0));
         BTN_MOVESTOP->setText(QApplication::translate("CMDDialog", "JoyMove Stop", 0));
+        pushButton->setText(QApplication::translate("CMDDialog", "data save", 0));
     } // retranslateUi
 
 };

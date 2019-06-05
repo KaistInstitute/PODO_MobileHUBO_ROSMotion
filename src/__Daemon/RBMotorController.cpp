@@ -450,18 +450,6 @@ int RBMotorController::RBBoard_SendReference2ch(int ref1, int ref2){
            BOARD_ID == 40 || BOARD_ID == 41){
             curref1 = -curref1;
         }
-
-        // adjust finger modifier
-        if(__IS_EXF_R && BOARD_ID == 38){
-            curref1 = curref1 * EXF_R_Modifier[1];  // RF1
-        }else if(__IS_EXF_R && BOARD_ID == 39){
-            curref1 = curref1 * EXF_R_Modifier[3];  // RF3
-        }else if(__IS_EXF_L && BOARD_ID == 40){
-            curref1 = curref1 * EXF_L_Modifier[1];  // LF1
-        }else if(__IS_EXF_L && BOARD_ID == 41){
-            curref1 = curref1 * EXF_L_Modifier[3];  // LF3
-        }
-
         mb.data[0] = (unsigned char)(curref1 & 0x00FF);
         mb.data[1] = (unsigned char)((curref1>>8) & 0x00FF);
         mb.data[2] = 0;
@@ -485,21 +473,6 @@ int RBMotorController::RBBoard_SendReference2ch(int ref1, int ref2){
            BOARD_ID == 38 || BOARD_ID == 39 ||
            BOARD_ID == 40 || BOARD_ID == 41){
             curref2 = -curref2;
-        }
-
-        // adjust finger modifier
-        if(__IS_EXF_R && BOARD_ID == 36){
-            curref2 = curref2 * EXF_R_Modifier[0];  // RF0
-        }else if(__IS_EXF_R && BOARD_ID == 38){
-            curref2 = curref2 * EXF_R_Modifier[2];  // RF2
-        }else if(__IS_EXF_R && BOARD_ID == 39){
-            curref2 = curref2 * EXF_R_Modifier[4];  // RF4
-        }else if(__IS_EXF_L && BOARD_ID == 37){
-            curref2 = curref2 * EXF_L_Modifier[0];  // LF0
-        }else if(__IS_EXF_L && BOARD_ID == 40){
-            curref2 = curref2 * EXF_L_Modifier[2];  // LF2
-        }else if(__IS_EXF_L && BOARD_ID == 41){
-            curref2 = curref2 * EXF_L_Modifier[4];  // LF4
         }
 
         mb.data[4] = (unsigned char)(curref2 & 0x00FF);

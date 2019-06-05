@@ -38,6 +38,8 @@ private slots:
 
     void on_BTN_MOVESTOP_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::CMDDialog *ui;
     QTimer		*displayTimer;
