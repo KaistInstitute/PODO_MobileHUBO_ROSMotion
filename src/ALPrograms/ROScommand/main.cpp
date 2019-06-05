@@ -60,7 +60,6 @@ RT_TASK rtJoystickCon;
 JointControlClass *joint;
 TaskMotion      *WBmotion;
 
-//r2p sharedROS->r2p;
 void JoystickThread(void *){
     while(1){
         static unsigned int Joy_counter = 0;
@@ -220,6 +219,7 @@ int main(int argc, char *argv[])
     if( RBInitialize() == -1 )
         isTerminated = -1;
 
+    ROS_Clean();
     sharedROS->state_arm = ROBOT_NOT_MOVE;
     sharedROS->state_base = BASE_NOT_MOVE;
     usleep(500*1000);
@@ -273,7 +273,6 @@ int main(int argc, char *argv[])
         }
         case MODE_SET_WBIK:
         {
-            printf("kkk\n");
             if(CheckRobotState_ARM()==false)
             {
                 sharedROS->COMMAND.CMD_JOINT = MODE_BREAK;
@@ -459,7 +458,6 @@ int main(int argc, char *argv[])
                 joint->RefreshToCurrentReference();
                 ResetJOY();
                 _isFirst = true;
-//                FLAG_JOYStart = true;
                 usleep(20*1000);
                 Joystick_flag = true;
 
@@ -530,8 +528,9 @@ void RBTaskThread(void *)
             WBmotion->updateAll();
             WBmotion->WBIK_UB();
 
-            if(WBmotion->isDoneMove() == true)
+            if(WBmotion->isDoneMove() == WBIK_DONE)
             {
+                printf("WBIK done\n");
                 sharedROS->state_arm = ROBOT_NOT_MOVE;
                 WB_FLAG = false;
             }
@@ -583,19 +582,16 @@ void RBFlagThread(void *)
     {
         rt_task_wait_period(NULL);
 
-//        if(HasAnyOwnership())
-        {
-            if(sharedCMD->SYNC_SIGNAL[PODO_NO] == true){
-                joint->JointUpdate();
-                rt_task_resume(&rtTaskCon);
-            }
+        if(sharedCMD->SYNC_SIGNAL[PODO_NO] == true){
+            joint->JointUpdate();
+            rt_task_resume(&rtTaskCon);
         }
+
     }
 }
 
 void JOY_TH()
 {
-    //ReadJoy();
     switch(Mode_Manual)
     {
     case MANUAL_STOP:
@@ -655,7 +651,6 @@ void JOY_TH()
             OMNImove.LWHinfo.MoveDistance_m += OMNImove.LWHinfo.WheelVel_ms;
             OMNImove.BWHinfo.MoveDistance_m += OMNImove.BWHinfo.WheelVel_ms;
 
-            printf("Init = %f\n",OMNImove.RWHinfo.InitRef_Deg);
             joint->SetMoveJoint(RWH, OMNImove.RWHinfo.InitRef_Deg + OMNImove.RWHinfo.MoveDistance_m, 5, MOVE_ABSOLUTE);
             joint->SetMoveJoint(BWH, OMNImove.BWHinfo.InitRef_Deg + OMNImove.BWHinfo.MoveDistance_m, 5, MOVE_ABSOLUTE);
             joint->SetMoveJoint(LWH, OMNImove.LWHinfo.InitRef_Deg + OMNImove.LWHinfo.MoveDistance_m, 5, MOVE_ABSOLUTE);
@@ -777,7 +772,6 @@ void ManualMoveHand()
     // Variables
     static int counter = 0;
     double pVel[3] = {0,0,0};
-//    static double RH_SpeedUP_V0[6] = {0,0,0};
     static double SpeedDW_V0[8] = {0,0,0,0,0,0,0,0};
     static int SpeedUp_time[8] = {0,0,0,0,0,0,0,0};
     static int SlowDown_time[8] = {0,0,0,0,0,0,0,0};
@@ -787,7 +781,7 @@ void ManualMoveHand()
     double Dcc = 0.5;
     double MaxVel = 0.07;
     static bool MoveFlag[8] = {false,false,false,false,false,false,false,false};
- //   double ShoulderToHand;
+
     double ShoulderToWrist;
     static bool Manual_OK = true;
     static double manual_pos[3];
@@ -815,7 +809,6 @@ void ManualMoveHand()
     static int GL_JOY_RT_before;
     static int GL_JOY_X_before;
     static int GL_JOY_Y_before;
-//    static bool Release_Flag = false;
     static unsigned int same_counter = 0;
     static quat manual_quat;
     static quat manual_quat_before;
@@ -939,7 +932,6 @@ void ManualMoveHand()
             pVel[i] = SpeedDW_V0[i] - Dcc*SlowDown_time[i]*0.005;
             if(pVel[i] <= 0) pVel[i] = 0;
             SpeedUp_time[i] = 0;
-//            RH_SpeedUP_V0[i] = pVel[i];
         }
     }
 
@@ -957,17 +949,12 @@ void ManualMoveHand()
             AngSpeed[i] = SpeedDW_V0[i] - Dccq*SlowDown_time[i]*0.005;
             if(AngSpeed[i] <= 0) AngSpeed[i] = 0;
             SpeedUp_time[i] = 0;
- //         RH_SpeedUP_V0[i] = AngSpeed[i];
         }
     }
 
 
 
     counter++;
-
- //   if(counter%100 == 0)
- //       cout<<"Joy Value: "<<sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[1]<<" time: "<<SpeedUp_time<<" pVel: "<<pVel<<" MoveFlag: "<<MoveFlag<<endl;
-
 
     if(GL_JOY_Y_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[1] && GL_JOY_A_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[2] && GL_JOY_X_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[0]
             && GL_JOY_B_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[3] && GL_JOY_RT_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[4] && GL_JOY_RB_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[5]
@@ -1233,7 +1220,6 @@ void ManualMoveHand()
     // Add POS info
     if(Mode_Manual == MANUAL_RHAND){
         // boundary of work-space
-        //quat Hand_quat = quat(WBmotion->qRH_4x1[0],WBmotion->qRH_4x1[1],WBmotion->qRH_4x1[2],WBmotion->qRH_4x1[3]);
         mat3 Hand_Ori_mat = mat3(manual_quat);
         vec3 Hand_pos = vec3(manual_pos[0],manual_pos[1],manual_pos[2]);
         vec3 WristToHand_HandFrame = vec3(0,0,-0.16);
@@ -1265,9 +1251,6 @@ void ManualMoveHand()
             WBmotion->addRHOriInfo(RH_manual_ori, 0.005);
 
             manual_quat_before = manual_quat;
-            //manual_quat = quat(WBmotion->qRH_4x1[0],WBmotion->qRH_4x1[1],WBmotion->qRH_4x1[2],WBmotion->qRH_4x1[3]);
-
-
         }
         else{
             for(int i=0 ; i<3 ; i++)
@@ -1280,15 +1263,10 @@ void ManualMoveHand()
 
 
         //------------------------ELB--------------------------------------------------
-       // if(RELB < 0 || RELB > -90){
             WBmotion->addRElbPosInfo(RELB,0.005);
             WBmotion->des_RElb_ang = RELB;
             RELB_before = RELB;
 
-        //}
-//        else{
-//            RELB = RELB_before;
-//        }
         //-------------------------------------------------------------------------------
 
 
@@ -1350,13 +1328,8 @@ void ManualMoveHand()
         //---------------------------------------------------------------------------
 
         //------------------------ELB--------------------------------------------------
-//        if(RELB < 0 || RELB > -90){
             WBmotion->addLElbPosInfo(RELB,0.005);
             RELB_before = RELB;
-//        }
-//        else{
-//            RELB = RELB_before;
-//        }
         //-------------------------------------------------------------------------------
         //------------------------Finger-----------------------------------------------
         joint->SetJointRefAngle(LHAND, Grasping_value);
@@ -1378,7 +1351,6 @@ void ManualMoveHand()
     }
     //-------------------------------------------------------------------------------
     if(counter >= 100){
-        //
         counter = 0;
     }
 }
@@ -1388,7 +1360,6 @@ void ManualMoveRHand()
     // Variables
     static int counter = 0;
     double pVel[3] = {0,0,0};
-//    static double RH_SpeedUP_V0[6] = {0,0,0};
     static double SpeedDW_V0[8] = {0,0,0,0,0,0,0,0};
     static int SpeedUp_time[8] = {0,0,0,0,0,0,0,0};
     static int SlowDown_time[8] = {0,0,0,0,0,0,0,0};
@@ -1398,7 +1369,6 @@ void ManualMoveRHand()
     double Dcc = 0.5;
     double MaxVel = 0.07;
     static bool MoveFlag[8] = {false,false,false,false,false,false,false,false};
- //   double ShoulderToHand;
     double ShoulderToWrist;
     static bool Manual_OK = true;
     static double manual_pos[3];
@@ -1424,7 +1394,6 @@ void ManualMoveRHand()
     static int GL_JOY_Y_before;
     static int GL_JOY_BACK_before;
     static int GL_JOY_START_before;
-//    static bool Release_Flag = false;
     static unsigned int same_counter = 0;
     static quat manual_quat;
     static quat manual_quat_before;
@@ -1490,7 +1459,6 @@ void ManualMoveRHand()
             pVel[i] = SpeedDW_V0[i] - Dcc*SlowDown_time[i]*0.005;
             if(pVel[i] <= 0) pVel[i] = 0;
             SpeedUp_time[i] = 0;
-//            RH_SpeedUP_V0[i] = pVel[i];
         }
     }
 
@@ -1508,24 +1476,12 @@ void ManualMoveRHand()
             AngSpeed[i] = SpeedDW_V0[i] - Dccq*SlowDown_time[i]*0.005;
             if(AngSpeed[i] <= 0) AngSpeed[i] = 0;
             SpeedUp_time[i] = 0;
- //         RH_SpeedUP_V0[i] = AngSpeed[i];
         }
     }
 
 
 
     counter++;
-//    if(GL_JOY_Y_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[1] && GL_JOY_A_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[2] && GL_JOY_X_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[0]
-//            && GL_JOY_B_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[3] && GL_JOY_RT_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[4] && GL_JOY_RB_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[5]
-//            && GL_JOY_LT_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[6] && GL_JOY_LB_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[7] && GL_JOY_AROW_RL_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[8]
-//            && GL_JOY_AROW_UD_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[9] && GL_JOY_RJOG_RL_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[0] && GL_JOY_LJOG_RL_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[1]
-//            && GL_JOY_RJOG_UD_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[2] && GL_JOY_LJOG_UD_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[3])
-//    {
-//        same_counter++;
-//    }
-//    else{
-//        same_counter = 0;
-//    }
 
     GL_JOY_A_before = GL_JOY_A;
     GL_JOY_AROW_RL_before = GL_JOY_AROW_RL;
@@ -1757,7 +1713,6 @@ void ManualMoveRHand()
     // Add POS info
 
     // boundary of work-space
-    //quat Hand_quat = quat(WBmotion->qRH_4x1[0],WBmotion->qRH_4x1[1],WBmotion->qRH_4x1[2],WBmotion->qRH_4x1[3]);
     mat3 Hand_Ori_mat = mat3(manual_quat);
     vec3 Hand_pos = vec3(manual_pos[0],manual_pos[1],manual_pos[2]);
     vec3 WristToHand_HandFrame = vec3(0,0,-0.16);
@@ -1791,9 +1746,6 @@ void ManualMoveRHand()
         WBmotion->addRHOriInfo(RH_manual_ori, 0.005);
 
         manual_quat_before = manual_quat;
-        //manual_quat = quat(WBmotion->qRH_4x1[0],WBmotion->qRH_4x1[1],WBmotion->qRH_4x1[2],WBmotion->qRH_4x1[3]);
-
-
     }
     else{
         for(int i=0 ; i<3 ; i++)
@@ -1839,7 +1791,6 @@ void ManualMoveLHand()
     // Variables
     static int counter = 0;
     double pVel[3] = {0,0,0};
-//    static double RH_SpeedUP_V0[6] = {0,0,0};
     static double SpeedDW_V0[8] = {0,0,0,0,0,0,0,0};
     static int SpeedUp_time[8] = {0,0,0,0,0,0,0,0};
     static int SlowDown_time[8] = {0,0,0,0,0,0,0,0};
@@ -1849,7 +1800,6 @@ void ManualMoveLHand()
     double Dcc = 0.5;
     double MaxVel = 0.07;
     static bool MoveFlag[8] = {false,false,false,false,false,false,false,false};
- //   double ShoulderToHand;
     double ShoulderToWrist;
     static bool Manual_OK = true;
     static double manual_pos[3];
@@ -1872,7 +1822,6 @@ void ManualMoveLHand()
     static int GL_JOY_RT_before;
     static int GL_JOY_X_before;
     static int GL_JOY_Y_before;
-//    static bool Release_Flag = false;
     static unsigned int same_counter = 0;
     static quat manual_quat;
     static quat manual_quat_before;
@@ -1929,7 +1878,6 @@ void ManualMoveLHand()
             pVel[i] = SpeedDW_V0[i] - Dcc*SlowDown_time[i]*0.005;
             if(pVel[i] <= 0) pVel[i] = 0;
             SpeedUp_time[i] = 0;
-//            RH_SpeedUP_V0[i] = pVel[i];
         }
     }
 
@@ -1947,24 +1895,10 @@ void ManualMoveLHand()
             AngSpeed[i] = SpeedDW_V0[i] - Dccq*SlowDown_time[i]*0.005;
             if(AngSpeed[i] <= 0) AngSpeed[i] = 0;
             SpeedUp_time[i] = 0;
- //         RH_SpeedUP_V0[i] = AngSpeed[i];
         }
     }
 
-
-
     counter++;
-//    if(GL_JOY_Y_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[1] && GL_JOY_A_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[2] && GL_JOY_X_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[0]
-//            && GL_JOY_B_before==(int)sharedCMD->COMMAND[PODO_NO].USER_PARA_CHAR[3] && GL_JOY_RT_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[4] && GL_JOY_RB_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[5]
-//            && GL_JOY_LT_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[6] && GL_JOY_LB_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[7] && GL_JOY_AROW_RL_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[8]
-//            && GL_JOY_AROW_UD_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[9] && GL_JOY_RJOG_RL_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[0] && GL_JOY_LJOG_RL_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[1]
-//            && GL_JOY_RJOG_UD_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[2] && GL_JOY_LJOG_UD_before==sharedCMD->COMMAND[PODO_NO].USER_PARA_INT[3])
-//    {
-//        same_counter++;
-//    }
-//    else{
-//        same_counter = 0;
-//    }
 
     GL_JOY_A_before = GL_JOY_A;
     GL_JOY_AROW_RL_before = GL_JOY_AROW_RL;
@@ -2192,7 +2126,6 @@ void ManualMoveLHand()
         WBmotion->addLHOriInfo(manual_ori, 0.005);
 
         manual_quat_before = manual_quat;
-        //manual_quat = quat(WBmotion->qRH_4x1[0],WBmotion->qRH_4x1[1],WBmotion->qRH_4x1[2],WBmotion->qRH_4x1[3]);
     }
     else{
         for(int i=0 ; i<3 ; i++)
@@ -2204,10 +2137,10 @@ void ManualMoveLHand()
 
 void ROS_Clean()
 {
-//    sharedROS->Arm_action.joint[i].GoalmsTime = 0.;
+    memset(sharedROS,0,sizeof(sharedROS));
 }
 
-int CheckRobotState_ARM()
+int  CheckRobotState_ARM()
 {
     switch(sharedROS->state_arm)
     {
@@ -2806,8 +2739,8 @@ void ResetJOY()
 void StartWBIKmotion(int _mode)
 {
     WB_FLAG = false;
-    usleep(10*1000);
 
+    WBmotion->InitDoneFlag();
     joint->RefreshToCurrentReference(ARMonly);
 
     WBmotion->ResetGlobalCoord(_mode);

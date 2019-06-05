@@ -325,7 +325,7 @@ TrajectoryHandler::TrajectoryHandler(int _order, double _tick){
     tickTime = _tick;
     trInfos.clear();
     currentInfo = NULL;
-    doneFlag = true;
+    doneFlag = WBIK_BREAK;
     AllocateRetValue();
 }
 
@@ -385,7 +385,7 @@ int TrajectoryHandler::OverwriteTrajInfo(TRInfo _info){
 doubles TrajectoryHandler::UpdateTrajectory(){
     if(currentInfo == NULL){
         if(!trInfos.empty()){
-            doneFlag = false;
+            doneFlag = WBIK_MOVING;
             currentInfo = trInfos.first();
             currentInfo->GetCurrentValue(retValue);
             trInfos.pop_front();
@@ -415,7 +415,7 @@ doubles TrajectoryHandler::UpdateTrajectory(){
             return UpdateTrajectory();
         }else
         {
-            doneFlag = true;
+            doneFlag = WBIK_DONE;
             currentInfo = NULL;
         }
     }

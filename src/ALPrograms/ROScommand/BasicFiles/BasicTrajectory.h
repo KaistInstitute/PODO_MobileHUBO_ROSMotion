@@ -3,6 +3,10 @@
 
 #include "BasicMatrix.h"
 
+#define WBIK_BREAK 0
+#define WBIK_MOVING 1
+#define WBIK_DONE 10
+
 namespace rainbow{
 const int RB_SUCCESS = true;
 const int RB_FAIL = false;
@@ -264,6 +268,7 @@ public:
 										retValue = temp; return RB_SUCCESS;}
     doubles	GetRetValue()				{return retValue;}
     int     isDoneTraj()                {return doneFlag;}
+    void    InitDoneFlag()              {doneFlag = WBIK_BREAK;}
 };
 //========================================================================================================
 

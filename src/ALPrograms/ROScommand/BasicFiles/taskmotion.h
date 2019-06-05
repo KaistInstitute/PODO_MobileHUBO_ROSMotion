@@ -9,6 +9,7 @@
 #include "BasicMatrix.h"
 
 
+
 using namespace rainbow;
 
 class TaskMotion
@@ -98,6 +99,10 @@ public:
 
     int         DoneFlag;
 
+    int RHdoneflag[4];
+    int LHdoneflag[4];
+    int WSTdoneflag;
+
     void    StopAll(void);
     void    ResetGlobalCoord(int RF_OR_LF_OR_PC);
     void    RefreshToCurrentReference(void);
@@ -146,6 +151,7 @@ public:
     void WBIK_PARA_CHANGE();
 
     int isDoneMove()    {return DoneFlag;}
+    void InitDoneFlag();
 };
 
 

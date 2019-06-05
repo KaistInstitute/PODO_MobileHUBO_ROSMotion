@@ -97,12 +97,6 @@ void ROSWorker::SendtoROS(){
     TXData.podo2ros_data.Base_feedback = sharedROS->Base_feedback;
     TXData.podo2ros_data.Gripper_feedback = sharedROS->Gripper_feedback;
 
-//    sharedROS->joint_before[rosWST].reference = TXData.podo2ros_data.Arm_feedback.wbik[WAIST].Goal_angle;
-//    sharedROS->joint_before[rosREB].reference = TXData.podo2ros_data.sensor.ENCODER[rosWST].CurrentReference;
-
-//    static int cnt = 0;
-//    sharedROS->ROSindex = cnt;
-//    cnt++;
     //write state
     TXData.podo2ros_data.state_arm = sharedROS->state_arm;
     TXData.podo2ros_data.state_base = sharedROS->state_base;
@@ -137,7 +131,7 @@ void ROSWorker::ReadfromROS(){
     sharedROS->COMMAND.CMD_GRIPPER = RXData.ros2podo_data.CMD_GRIPPER;
     sharedROS->COMMAND.CMD_WHEEL = RXData.ros2podo_data.CMD_WHEEL;
     sharedROS->COMMAND.CMD_JOINT = RXData.ros2podo_data.CMD_JOINT;
-//    printf("CMD = %d, %d, %d\n",RXData.ros2podo_data.CMD_JOINT,RXData.ros2podo_data.CMD_GRIPPER,RXData.ros2podo_data.CMD_WHEEL);
+    printf("CMD = %d, %d, %d\n",RXData.ros2podo_data.CMD_JOINT,RXData.ros2podo_data.CMD_GRIPPER,RXData.ros2podo_data.CMD_WHEEL);
 //    printf("ref WST = %f\n",RXData.ros2podo_data.Arm_action.joint[rosWST].reference);
     //here!
 //    usleep(20*1000);

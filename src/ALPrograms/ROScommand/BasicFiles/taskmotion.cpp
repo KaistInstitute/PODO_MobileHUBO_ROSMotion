@@ -349,7 +349,6 @@ void TaskMotion::addLHOriInfo(double _sTime){
 void TaskMotion::updateAll(){
     if(WBTYPE==WB_POINT_TO_POINT)
     {
-        int RHdoneflag[4], LHdoneflag[4], WSTdoneflag;
         for(int i=0; i<3; i++){
             doubles _rf = wbPosRF[i]->UpdateTrajectory();
             doubles _lf = wbPosLF[i]->UpdateTrajectory();
@@ -399,21 +398,55 @@ void TaskMotion::updateAll(){
             des_qPEL_4x1[i] = _opel[i];
         }
 
-        //right arm check
-        DoneFlag = true;
-        for(int i=0;i<4;i++)
+        int CheckFlag = 0;
+        //right arm check _ just one moving -> Moving
+        for(int i=0; i<4; i++)
         {
-            if(RHdoneflag[i] == false || LHdoneflag[i] == false)
-            {
-                DoneFlag = false;
-                break;
-            }
+            CheckFlag += RHdoneflag[i];
+            CheckFlag += LHdoneflag[i];
         }
-        if(WSTdoneflag == false)
-            DoneFlag = false;
+        CheckFlag += WSTdoneflag;
 
+        if(CheckFlag/10 > 0)
+        {//least 1 done
+            DoneFlag = WBIK_DONE;
+        }
+
+        CheckFlag = CheckFlag % 10;
+
+        if(CheckFlag > 0)
+        {
+            DoneFlag = WBIK_MOVING;
+        }else if(DoneFlag != WBIK_DONE)
+        {
+            DoneFlag = WBIK_BREAK;
+        }
     }
 }
+
+void TaskMotion::InitDoneFlag()
+{
+    for(int i=0;i<4;i++)
+    {
+        RHdoneflag[i] = WBIK_BREAK;
+        LHdoneflag[i] = WBIK_BREAK;
+    }
+    WSTdoneflag = WBIK_BREAK;
+    DoneFlag = WBIK_BREAK;
+
+
+    for(int i=0; i<3; i++){
+
+        wbPosRH[i]->InitDoneFlag();
+        wbPosLH[i]->InitDoneFlag();
+    }
+    wbPosWST->InitDoneFlag();
+
+   wbPosELB[0]->InitDoneFlag();
+   wbPosELB[1]->InitDoneFlag();
+
+}
+
 double TaskMotion::limit_Qd(double Qd, double Qdd, double Qd_max, double dt)   //joint velocity limit function
 {
     double qd_temp = Qd + Qdd*dt;
